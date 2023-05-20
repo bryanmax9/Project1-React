@@ -1,6 +1,7 @@
-import Expenses from "./components/Expenses";
+import React from "react";
+import Expenses from "./components/Expenses/Expenses";
 
-function App() {
+const App = () => {
   // We are storing all the data as a list of objects that will store all the necessary data
   // Here we are Moking an API that is giving as class objects with data that then will be used in the fonrt-end
 
@@ -27,12 +28,22 @@ function App() {
   ];
 
   // We are giving the array of objects to the Expenses.js in order to create the ExpenseItems
+  // This is JXS
   return (
     <div>
       <h2>Let's get started!</h2>
       <Expenses items={expenses}></Expenses>
     </div>
   );
-}
+
+  // Alternative making it using the import 'react'. However, this is conversome and unreadable
+  //  DECLARATIVE JavaScript Code
+  // return React.createElement(
+  //   "div",
+  //   {},
+  //   React.createElement("h2", {}, "Let's get started!"),
+  //   React.createElement(Expenses, { items: expenses })
+  // );
+};
 
 export default App;
