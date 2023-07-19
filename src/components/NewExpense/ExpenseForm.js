@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   // In order to save the input of the user, we will use "useState" to store it
 
   // We can do and make multiple states
@@ -73,12 +73,38 @@ const ExpenseForm = () => {
   //   }
   // };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    // Login to the console the object with the data of the form
+    console.log(expenseData);
+    // Then sending the data to the NewExpense
+    props.onSaveExpenseData(expenseData);
+
+    // After adding "value" inside the div
+    // Then, when form is submitted, we are resetting each value
+
+    setEnteredTitle("");
+    setEnteredDate("");
+    setEnteredAmount("");
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titlechangeHandler}></input>
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titlechangeHandler}
+          ></input>
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -86,6 +112,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount}
             onChange={amountChangeHandler}
           ></input>
         </div>
@@ -95,6 +122,7 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2023-12-31"
+            value={enteredDate}
             onChange={dateChangeHandler}
           ></input>
         </div>
