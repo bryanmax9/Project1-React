@@ -23,6 +23,19 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  let expensesContent = <p>No expenses found</p>;
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => (
+      <ExpenseItem
+        // In order fro React to know where to add a new item, we are using the "key" prop
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date}
+      ></ExpenseItem>
+    ));
+  }
+
   return (
     <div>
       <Card className="expenses">
@@ -33,15 +46,7 @@ const Expenses = (props) => {
         ></ExpensesFilter>
 
         {/* getting the array of objects from app.js to here through props to then converting each item from the array to an ExpenseItem */}
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-            // In order fro React to know where to add a new item, we are using the "key" prop
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          ></ExpenseItem>
-        ))}
+        {expensesContent}
       </Card>
     </div>
   );
